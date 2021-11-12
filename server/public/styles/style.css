@@ -1,3 +1,13 @@
 body {
   background-color:steelblue;
 }
+
+table {
+  background-color: dimgray;
+}
+
+td {
+  width: 75px;
+  height: 75px;
+  background-color: lightslategray;
+}

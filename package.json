@@ -1,0 +1,23 @@
+{
+  "name": "server-side-calculator",
+  "version": "1.0.0",
+  "description": "[Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AllenJoeG/Server-Side-Calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AllenJoeG/Server-Side-Calculator/issues"
+  },
+  "homepage": "https://github.com/AllenJoeG/Server-Side-Calculator#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
