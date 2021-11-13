@@ -30,7 +30,7 @@ app.post('/calculate', (req, res) => {
   res.sendStatus(201);
 });
 
-
+// Call all the math functions in the rigth order
 function doTheMath(object){
   let calcString = object.calc;
   let operatorsArray = operatorCount(calcString);
@@ -39,9 +39,27 @@ function doTheMath(object){
 
   
   // Translate parsedCalc into javascript math
+  //call parseCalcMD(parsedCalc);
+  //call parseCalcAS(parsedCalcMD);
+  //push finalCalc to calculatedArray;
+
 }
 
-//take in calculation string, and array of operator positions
+//allows us to call operatorMath['oper'](x, y) ✅
+let operatorMath = {
+  '+': function (x, y) { return x + y },
+  '-': function (x, y) { return x - y },
+  '*': function (x, y) { return x * y },
+  '/': function (x, y) { return x / y },
+};
+
+//Function loop through parsedCalc and reduce all the multiplication and division
+//return parsedCalcMD
+
+//Function loop through parsedCalcMD and do all the addition and subtraction
+//return finalCalc,
+
+//take in calculation string, and array of operator positions ✅
 //make slices based on index positions of operators
 //returns array [number, operator, number, operator, number]
 function sliceAndDice(string, array){
@@ -57,7 +75,7 @@ function sliceAndDice(string, array){
 return parsedCalculation;
 }
 
-//returns array of index values of operators for provided string. uses isNaN
+//returns array of index values of operators for provided string. uses isNaN ✅
 function operatorCount(string){
   operatorIndexes = [];
   for (let x in string){
@@ -68,7 +86,7 @@ function operatorCount(string){
   return operatorIndexes;
 }; //end operatorCount
 
-//Make the internet happen
+//Make the internet happen ✅
 app.listen(PORT, () => {
   console.log ('Server is running on port', PORT)
 })
