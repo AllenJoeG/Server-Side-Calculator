@@ -201,4 +201,4 @@ let operatorMath = {
   '/': function (x, y) { return x / y },
 };
 
-doTheThing()
+// doTheThing()

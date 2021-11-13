@@ -23,10 +23,9 @@ app.get('/calculate', (req, res) => {
 
 //POST Route receiving to-be-calculated from client
 app.post('/calculate', (req, res) => {
-  // calculationsArray.push(req.body);
-  console.log(calculationsArray);
-  doTheMath(req.body)
   //Call Function that changes req.body into calculation
+  doTheMath(req.body)
+  
   res.sendStatus(201);
 });
 
@@ -36,14 +35,18 @@ function doTheMath(object){
   let operatorsArray = operatorCount(calcString);
   let parsedCalc = sliceAndDice(calcString, operatorsArray);
   calculationsArray.push(parsedCalc);
+  //Turn this array into a string
 
-  
-  // Translate parsedCalc into javascript math
   //call parseCalcMD(parsedCalc);
+  let parsedCalcMD = parseCalcMD(parsedCalc);
   //call parseCalcAS(parsedCalcMD);
+  let finalCalc = parseCalcAS(parsedCalcMD);
   //push finalCalc to calculatedArray;
+  calculatedArray.push(finalCalc);
 
-}
+  console.log(calculationsArray);
+  console.log(calculatedArray);
+};
 
 //allows us to call operatorMath['oper'](x, y) ✅
 let operatorMath = {
