@@ -60,3 +60,43 @@ function submitCalculation(calculation) {
 
 //Hacking at function that changes req.body format into calculation
 //building on client side so I can test easier, then will port to server
+// will tag argu: object that is the req.body
+function doTheThing(){
+  let mockReqBody = {calc: '66+33'};
+  let mockReqBody2 = {calc: '467/13*20'};
+  let mockReqBody3 = {calc: '46-12+13/15*48'}
+
+  console.log('How JS maths "66 + 33"', 66 + 33);
+  console.log('How JS maths "467 / 13 * 20', 467 / 13 * 20);
+  console.log('How JS maths "46 - 12 + 13 / 15 * 48', 46 - 12 + 13 / 15 * 48);
+
+  let mRQ = mockReqBody.calc;
+  let mRQ2 = mockReqBody2.calc;
+  let mRQ3 = mockReqBody3.calc;
+  console.log(mRQ3);
+
+operatorCount(mRQ); //['2']
+operatorCount(mRQ2); //['3', '6']
+operatorCount(mRQ3); //['2', '5', '8', '11']
+
+
+
+}; //end doTheThing
+
+function operatorCount(string){
+  operatorIndexes = [];
+  for (let x in string){
+    if (isNaN(string[x])){
+      operatorIndexes.push(x);
+    }
+  }
+  console.log(operatorIndexes)
+  return operatorIndexes;
+}; //end operatorCount
+
+//loop through string
+//store index values of operators with isNaN
+//make slices based on index positions of operators
+//create array [number, operator, number, operator, number]
+
+doTheThing();
