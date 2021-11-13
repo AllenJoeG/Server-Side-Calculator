@@ -73,16 +73,35 @@ function doTheThing(){
   let mRQ = mockReqBody.calc;
   let mRQ2 = mockReqBody2.calc;
   let mRQ3 = mockReqBody3.calc;
-  console.log(mRQ3);
 
-operatorCount(mRQ); //['2']
-operatorCount(mRQ2); //['3', '6']
-operatorCount(mRQ3); //['2', '5', '8', '11']
+let mRQArray = operatorCount(mRQ); //['2']
+let mRQArray2 = operatorCount(mRQ2); //['3', '6']
+let mRQArray3 = operatorCount(mRQ3); //['2', '5', '8', '11']
 
-
+sliceAndDice(mRQ, mRQArray);
+sliceAndDice(mRQ2, mRQArray2);
+sliceAndDice(mRQ3, mRQArray3);
 
 }; //end doTheThing
 
+//take in calculation string, and array of operator positions
+//make slices based on index positions of operators
+//returns array [number, operator, number, operator, number]
+function sliceAndDice(string, array){
+  let parsedCalculation = [];
+  let strX = 0;
+
+  for (let x of array){
+    parsedCalculation.push(string.slice(strX, x));
+    parsedCalculation.push(string[x]);
+    strX = (Number(x)+1);
+  };
+  parsedCalculation.push(string.slice(strX, (string.length)));
+  console.log(parsedCalculation)
+return parsedCalculation;
+}
+
+//returns array of index values of operators for provided string. uses isNaN
 function operatorCount(string){
   operatorIndexes = [];
   for (let x in string){
@@ -93,10 +112,5 @@ function operatorCount(string){
   console.log(operatorIndexes)
   return operatorIndexes;
 }; //end operatorCount
-
-//loop through string
-//store index values of operators with isNaN
-//make slices based on index positions of operators
-//create array [number, operator, number, operator, number]
 
 doTheThing();
