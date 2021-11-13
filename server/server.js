@@ -55,10 +55,49 @@ let operatorMath = {
 
 //Function loop through parsedCalc and reduce all the multiplication and division
 //return parsedCalcMD
+function parseCalcMD(array){
+  //Do the Multiplications
+  for (let i in array){
+    i++; //skips two at a time to operators
+    if (array[i] === '*'){
+      // (operatorMath['*'](Number(array[i - 1]), Number(array[i + 1])));
+      array.splice((i - 1), 3, (operatorMath['*'](Number(array[i - 1]), Number(array[i + 1]))))
+    }; 
+  };
+  //Do the Divisions
+  for (let i in array){
+    i++; //skips two at a time to operators
+    if (array[i] === '/'){
+      // (operatorMath['*'](Number(array[i - 1]), Number(array[i + 1])));
+      array.splice((i - 1), 3, (operatorMath['/'](Number(array[i - 1]), Number(array[i + 1]))))
+    }; 
+  };
+  let parsedCalcMD = array;
+  return parsedCalcMD;
+}; // end parseCalcMD 
 
 
 //Function loop through parsedCalcMD and do all the addition and subtraction
 //return finalCalc,
+function parseCalcAS(array){
+  //Do the Additions
+  for (let i in array){
+    i++; //skips two at a time to operators
+    if (array[i] === '+'){
+      array.splice((i - 1), 3, (operatorMath['+'](Number(array[i - 1]), Number(array[i + 1]))))
+    }; 
+  };
+  //Do the Subtractions
+  for (let i in array){
+    i++; //skips two at a time to operators
+    if (array[i] === '-'){
+      // (operatorMath['*'](Number(array[i - 1]), Number(array[i + 1])));
+      array.splice((i - 1), 3, (operatorMath['-'](Number(array[i - 1]), Number(array[i + 1]))))
+    }; 
+  };
+  let parsedCalcAS = array;
+  return parsedCalcAS;
+}; // end parseCalcAS
 
 //take in calculation string, and array of operator positions ✅
 //make slices based on index positions of operators

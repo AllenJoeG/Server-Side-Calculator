@@ -117,11 +117,15 @@ console.log('logging MD on parseCalcMD(parsedCalc2):', parseCalcMD(parsedCalc2))
 console.log('logging MD on parseCalcMD(parsedCalc3):', parseCalcMD(parsedCalc3));
 console.log('logging MD on parseCalcMD(test4):', parseCalcMD(test4));
 
+console.log('logging AS on parseCalcAS(parseCalcMD(parsedCalc2)):', parseCalcAS(parseCalcMD(parsedCalc2)));
+console.log('logging AS on parseCalcAS(parseCalcMD(parsedCalc3)):', parseCalcAS(parseCalcMD(parsedCalc3)));
+console.log('logging AS on parseCalcAS(parseCalcMD(test4)):', parseCalcAS(parseCalcMD(test4)));
+
 }; //end doTheThing
 
 
 function parseCalcMD(array){
-  //Do the multiplications
+  //Do the Multiplications
   for (let i in array){
     i++; //skips two at a time to operators
     if (array[i] === '*'){
@@ -140,6 +144,26 @@ function parseCalcMD(array){
   let parsedCalcMD = array;
   return parsedCalcMD;
 }; // end parseCalcMD 
+
+function parseCalcAS(array){
+  //Do the Additions
+  for (let i in array){
+    i++; //skips two at a time to operators
+    if (array[i] === '+'){
+      array.splice((i - 1), 3, (operatorMath['+'](Number(array[i - 1]), Number(array[i + 1]))))
+    }; 
+  };
+  //Do the Subtractions
+  for (let i in array){
+    i++; //skips two at a time to operators
+    if (array[i] === '-'){
+      // (operatorMath['*'](Number(array[i - 1]), Number(array[i + 1])));
+      array.splice((i - 1), 3, (operatorMath['-'](Number(array[i - 1]), Number(array[i + 1]))))
+    }; 
+  };
+  let parsedCalcAS = array;
+  return parsedCalcAS;
+}; // end parseCalcAS
 
 //take in calculation string, and array of operator positions
 //make slices based on index positions of operators
