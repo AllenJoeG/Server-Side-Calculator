@@ -60,20 +60,24 @@ let operatorMath = {
 //return parsedCalcMD
 function parseCalcMD(array){
   //Do the Multiplications
-  for (let i in array){
-    i++; //skips two at a time to operators
-    if (array[i] === '*'){
-      // (operatorMath['*'](Number(array[i - 1]), Number(array[i + 1])));
-      array.splice((i - 1), 3, (operatorMath['*'](Number(array[i - 1]), Number(array[i + 1]))))
-    }; 
-  };
+  while (array.includes('*')){
+    for (let i in array){
+      i++; //skips two at a time to operators
+      if (array[i] === '*'){
+        // (operatorMath['*'](Number(array[i - 1]), Number(array[i + 1])));
+        array.splice((i - 1), 3, (operatorMath['*'](Number(array[i - 1]), Number(array[i + 1]))))
+      }; 
+    };
+  };//end while
   //Do the Divisions
-  for (let i in array){
-    i++; //skips two at a time to operators
-    if (array[i] === '/'){
-      // (operatorMath['*'](Number(array[i - 1]), Number(array[i + 1])));
-      array.splice((i - 1), 3, (operatorMath['/'](Number(array[i - 1]), Number(array[i + 1]))))
-    }; 
+  while (array.includes('/')){
+    for (let i in array){
+      i++; //skips two at a time to operators
+      if (array[i] === '/'){
+        // (operatorMath['*'](Number(array[i - 1]), Number(array[i + 1])));
+        array.splice((i - 1), 3, (operatorMath['/'](Number(array[i - 1]), Number(array[i + 1]))))
+      }; 
+    };
   };
   let parsedCalcMD = array;
   return parsedCalcMD;
@@ -84,19 +88,23 @@ function parseCalcMD(array){
 //return finalCalc,
 function parseCalcAS(array){
   //Do the Additions
-  for (let i in array){
-    i++; //skips two at a time to operators
-    if (array[i] === '+'){
-      array.splice((i - 1), 3, (operatorMath['+'](Number(array[i - 1]), Number(array[i + 1]))))
-    }; 
+  while (array.includes('+')){
+    for (let i in array){
+      i++; //skips two at a time to operators
+      if (array[i] === '+'){
+        array.splice((i - 1), 3, (operatorMath['+'](Number(array[i - 1]), Number(array[i + 1]))))
+      }; 
+    };
   };
   //Do the Subtractions
-  for (let i in array){
-    i++; //skips two at a time to operators
-    if (array[i] === '-'){
-      // (operatorMath['*'](Number(array[i - 1]), Number(array[i + 1])));
-      array.splice((i - 1), 3, (operatorMath['-'](Number(array[i - 1]), Number(array[i + 1]))))
-    }; 
+  while (array.includes('-')){
+    for (let i in array){
+      i++; //skips two at a time to operators
+      if (array[i] === '-'){
+        // (operatorMath['*'](Number(array[i - 1]), Number(array[i + 1])));
+        array.splice((i - 1), 3, (operatorMath['-'](Number(array[i - 1]), Number(array[i + 1]))))
+      }; 
+    };
   };
   let parsedCalcAS = array;
   return parsedCalcAS;
