@@ -1,4 +1,3 @@
-
 $(document).ready(jqReady);
 
 function jqReady(){
@@ -16,7 +15,7 @@ function numberClicked(){
   let number = $(this).attr('id');
   $('#calcDisplayOut').append(number);
   preventOperatorSyntax = false;
-}
+};
 
 function clearButton(){
   $('#calcDisplayOut').empty();
@@ -26,7 +25,7 @@ function clearButton(){
 function operButton(){
   if (preventOperatorSyntax){
     window.alert('Please Avoid Syntax Errors');
-    //change this to replace the last entered operator with new one
+    // TODO change this to replace the last entered operator with new one
     //fetch $('#calcDisplayOut).text() and replace the final value
     //then update $('#calcDisplayOut)
   } else {
@@ -79,11 +78,11 @@ function renderCalculations(){
     
   }).then(function (response){
     $('.calcHistory').empty();
-    for (let calculation of response){
+
+    for (let i in response.calc){
       $('.calcHistory').append(`
-        <li>${calculation}</li>
+        <li>${response.calc[i]}: ${response.answer[i]}</li>
       `);
-    };//end for
-  
+    };
   });
 };

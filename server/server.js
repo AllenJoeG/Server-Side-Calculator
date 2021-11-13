@@ -17,24 +17,29 @@ let calculatedArray = [];
 //GET ROUTE /calculate - should send {array: calculatedArray, lastCalc: equationResult}
 //Required Feature - GET route for songListArray
 app.get('/calculate', (req, res) => {
-  res.send(calculationsArray);
+  let responseObject = {
+    calc: calculationsArray,
+    answer: calculatedArray,
+  };
+  res.send(responseObject);
 });
 
 
 //POST Route receiving to-be-calculated from client
 app.post('/calculate', (req, res) => {
   //Call Function that changes req.body into calculation
+  calculationsArray.push(req.body.calc);
+  console.log(calculationsArray);
   doTheMath(req.body)
   
   res.sendStatus(201);
 });
 
-// Call all the math functions in the rigth order
+// Call all the math functions in the right order
 function doTheMath(object){
   let calcString = object.calc;
   let operatorsArray = operatorCount(calcString);
   let parsedCalc = sliceAndDice(calcString, operatorsArray);
-  calculationsArray.push(parsedCalc);
   //Turn this array into a string
 
   //call parseCalcMD(parsedCalc);
@@ -44,7 +49,7 @@ function doTheMath(object){
   //push finalCalc to calculatedArray;
   calculatedArray.push(finalCalc);
 
-  console.log(calculationsArray);
+  
   console.log(calculatedArray);
 };
 
@@ -56,7 +61,7 @@ let operatorMath = {
   '/': function (x, y) { return x / y },
 };
 
-//Function loop through parsedCalc and reduce all the multiplication and division
+//Function loop through parsedCalc and reduce all the multiplication and division ✅
 //return parsedCalcMD
 function parseCalcMD(array){
   //Do the Multiplications
@@ -84,7 +89,7 @@ function parseCalcMD(array){
 }; // end parseCalcMD 
 
 
-//Function loop through parsedCalcMD and do all the addition and subtraction
+//Function loop through parsedCalcMD and do all the addition and subtraction ✅
 //return finalCalc,
 function parseCalcAS(array){
   //Do the Additions
