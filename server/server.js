@@ -15,12 +15,15 @@ let calculatedArray = [];
 //RES codes: 2XX: good, 5XX: error
 
 //GET ROUTE /calculate - should send {array: calculatedArray, lastCalc: equationResult}
-
+//Required Feature - GET route for songListArray
+app.get('/calculate', (req, res) => {
+  res.send(calculationsArray);
+});
 
 
 //POST Route receiving to-be-calculated from client
 app.post('/calculate', (req, res) => {
-  calculationsArray.push(req.body);
+  // calculationsArray.push(req.body);
   console.log(calculationsArray);
   doTheMath(req.body)
   //Call Function that changes req.body into calculation
@@ -32,8 +35,9 @@ function doTheMath(object){
   let calcString = object.calc;
   let operatorsArray = operatorCount(calcString);
   let parsedCalc = sliceAndDice(calcString, operatorsArray);
-  console.log(parsedCalc);
+  calculationsArray.push(parsedCalc);
 
+  
   // Translate parsedCalc into javascript math
 }
 

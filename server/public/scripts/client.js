@@ -7,32 +7,49 @@ function jqReady(){
   $('#clear').on('click', clearButton);
   $('.operButton').on('click', operButton);
   $('#equal').on('click', equalButton);
+  renderCalculations();
 };
+
+let preventOperatorSyntax = true;
 
 function numberClicked(){
   let number = $(this).attr('id');
   $('#calcDisplayOut').append(number);
+  preventOperatorSyntax = false;
 }
 
 function clearButton(){
   $('#calcDisplayOut').empty();
+  preventOperatorSyntax = true;
 };
 
 function operButton(){
-  let operator = $(this).attr('id');
-  $('#calcDisplayOut').append(operator);
+  if (preventOperatorSyntax){
+    window.alert('Please Avoid Syntax Errors');
+    //change this to replace the last entered operator with new one
+    //fetch $('#calcDisplayOut).text() and replace the final value
+    //then update $('#calcDisplayOut)
+  } else {
+    let operator = $(this).attr('id');
+    $('#calcDisplayOut').append(operator);
+    preventOperatorSyntax = true;
+  };
 };
 
 function equalButton(){
-  //This function is going to package up my calculation as data 
-  //Then call submitCalculation() to POST it out w AJAX
+  //conditional that won't allow a submission that ends in an operator
+  if(preventOperatorSyntax){
+    window.alert('Calculation may not end with an operator!')
+  } else {
+  // Package up my calculation as string data 
   let calcString = $('#calcDisplayOut').text();
   console.log('Passing calculation: ', calcString, ' to AJAX POST /calculate');
-
+  //Then call submitCalculation() to POST it out w AJAX as an object
   submitCalculation(calcString);
+  };
+};
 
-}
-
+//POST ROUTE sending to server upon 'equal' click
 function submitCalculation(calculation) {
   let calcData = {calc: calculation};
   //AJAX POST the to-be-calculated to /calculate POST route on server.js
@@ -43,14 +60,33 @@ function submitCalculation(calculation) {
     data: calcData,
   }).then(function(response) {
     console.log('Calculation Array SENT!')
+    $('#calcDisplayOut').empty();
     // TODO: call the GET to put result and history on the DOM
-    
+    renderCalculations();
+
   }).catch(function(error) {
     console.log('Calculation Array did NOT send')
 
-  })
+  });
 };//End Function
 
+//GET ROUTE /calculate and RENDER calculated data
+function renderCalculations(){
+
+  $.ajax({
+    method: 'GET',
+    url: '/calculate',
+    
+  }).then(function (response){
+    $('.calcHistory').empty();
+    for (let calculation of response){
+      $('.calcHistory').append(`
+        <li>${calculation}</li>
+      `);
+    };//end for
+  
+  });
+};
 
 //Hacking at function that changes req.body format into calculation
 //building on client side so I can test easier, then will port to server
