@@ -10,12 +10,19 @@ app.use(express.json());
 app.use(express.static('server/public'));
 
 const calculationsArray = [];
+let calculatedArray = [];
+
+//RES codes: 2XX: good, 5XX: error
+
+//GET ROUTE /calculate - should send {array: calculatedArray, lastCalc: equationResult}
+
+
 
 //POST Route receiving to-be-calculated from client
 app.post('/calculate', (req, res) => {
   calculationsArray.push(req.body);
   console.log(calculationsArray);
-  
+  //Call Function that changes req.body into calculation
   res.sendStatus(201);
 });
 
