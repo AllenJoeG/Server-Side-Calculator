@@ -27,13 +27,7 @@ function equalButton(){
   //This function is going to package up my calculation as data 
   //Then call submitCalculation() to POST it out w AJAX
   let calcString = $('#calcDisplayOut').text();
-  console.log(calcString);
-
-  //Create array that holds the calculation instructions to be sent as data via POST
-  let calculation = {calcOrder: []};
-  // store 'numbers', 'operator', 'numbers', 'operator', 'numbers' into an array
-  // pack that array into an object when it gets sent as {data: array} by AJAX
-  //Then server-side pull the array apart to make our math calc server side
+  console.log('Passing calculation: ', calcString, ' to AJAX POST /calculate');
 
   submitCalculation(calcString);
 
@@ -49,7 +43,7 @@ function submitCalculation(calculation) {
     data: calcData,
   }).then(function(response) {
     console.log('Calculation Array SENT!')
-    //call the GET to put result and history on the DOM
+    // TODO: call the GET to put result and history on the DOM
     
   }).catch(function(error) {
     console.log('Calculation Array did NOT send')
@@ -78,9 +72,9 @@ let mRQArray = operatorCount(mRQ); //['2']
 let mRQArray2 = operatorCount(mRQ2); //['3', '6']
 let mRQArray3 = operatorCount(mRQ3); //['2', '5', '8', '11']
 
-sliceAndDice(mRQ, mRQArray);
-sliceAndDice(mRQ2, mRQArray2);
-sliceAndDice(mRQ3, mRQArray3);
+sliceAndDice(mRQ, mRQArray); //['66', '+', '33']
+sliceAndDice(mRQ2, mRQArray2); //['467, '/', '13', '*', '20']
+sliceAndDice(mRQ3, mRQArray3); //['46', '-', '12, '+', '13', '/', '15', '*', '48']
 
 }; //end doTheThing
 
@@ -112,5 +106,3 @@ function operatorCount(string){
   console.log(operatorIndexes)
   return operatorIndexes;
 }; //end operatorCount
-
-doTheThing();

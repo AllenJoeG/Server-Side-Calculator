@@ -22,11 +22,49 @@ let calculatedArray = [];
 app.post('/calculate', (req, res) => {
   calculationsArray.push(req.body);
   console.log(calculationsArray);
+  doTheMath(req.body)
   //Call Function that changes req.body into calculation
   res.sendStatus(201);
 });
 
 
+function doTheMath(object){
+  let calcString = object.calc;
+  let operatorsArray = operatorCount(calcString);
+  let parsedCalc = sliceAndDice(calcString, operatorsArray);
+  console.log(parsedCalc);
+
+  // Translate parsedCalc into javascript math
+}
+
+//take in calculation string, and array of operator positions
+//make slices based on index positions of operators
+//returns array [number, operator, number, operator, number]
+function sliceAndDice(string, array){
+  let parsedCalculation = [];
+  let strX = 0;
+
+  for (let x of array){
+    parsedCalculation.push(string.slice(strX, x));
+    parsedCalculation.push(string[x]);
+    strX = (Number(x)+1);
+  };
+  parsedCalculation.push(string.slice(strX, (string.length)));
+return parsedCalculation;
+}
+
+//returns array of index values of operators for provided string. uses isNaN
+function operatorCount(string){
+  operatorIndexes = [];
+  for (let x in string){
+    if (isNaN(string[x])){
+      operatorIndexes.push(x);
+    }
+  }
+  return operatorIndexes;
+}; //end operatorCount
+
+//Make the internet happen
 app.listen(PORT, () => {
   console.log ('Server is running on port', PORT)
 })
