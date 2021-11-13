@@ -108,11 +108,38 @@ let mRQArray = operatorCount(mRQ); //['2']
 let mRQArray2 = operatorCount(mRQ2); //['3', '6']
 let mRQArray3 = operatorCount(mRQ3); //['2', '5', '8', '11']
 
-sliceAndDice(mRQ, mRQArray); //['66', '+', '33']
-sliceAndDice(mRQ2, mRQArray2); //['467, '/', '13', '*', '20']
-sliceAndDice(mRQ3, mRQArray3); //['46', '-', '12, '+', '13', '/', '15', '*', '48']
+let parsedCalc1 = sliceAndDice(mRQ, mRQArray); //['66', '+', '33']
+let parsedCalc2 = sliceAndDice(mRQ2, mRQArray2); //['467, '/', '13', '*', '20']
+let parsedCalc3 = sliceAndDice(mRQ3, mRQArray3); //['46', '-', '12, '+', '13', '/', '15', '*', '48']
+let test4 = ['12', '*', '14', '-', '12', '/', '14', '*', '13', '+', '27', '*', '13', '/', '21'];
+
+console.log('logging MD on parseCalcMD(parsedCalc2):', parseCalcMD(parsedCalc2));
+console.log('logging MD on parseCalcMD(parsedCalc3):', parseCalcMD(parsedCalc3));
+console.log('logging MD on parseCalcMD(test4):', parseCalcMD(test4));
 
 }; //end doTheThing
+
+
+function parseCalcMD(array){
+  //Do the multiplications
+  for (let i in array){
+    i++; //skips two at a time to operators
+    if (array[i] === '*'){
+      // (operatorMath['*'](Number(array[i - 1]), Number(array[i + 1])));
+      array.splice((i - 1), 3, (operatorMath['*'](Number(array[i - 1]), Number(array[i + 1]))))
+    }; 
+  };
+  //Do the Divisions
+  for (let i in array){
+    i++; //skips two at a time to operators
+    if (array[i] === '/'){
+      // (operatorMath['*'](Number(array[i - 1]), Number(array[i + 1])));
+      array.splice((i - 1), 3, (operatorMath['/'](Number(array[i - 1]), Number(array[i + 1]))))
+    }; 
+  };
+  let parsedCalcMD = array;
+  return parsedCalcMD;
+}; // end parseCalcMD 
 
 //take in calculation string, and array of operator positions
 //make slices based on index positions of operators
@@ -142,3 +169,12 @@ function operatorCount(string){
   console.log(operatorIndexes)
   return operatorIndexes;
 }; //end operatorCount
+
+let operatorMath = {
+  '+': function (x, y) { return x + y },
+  '-': function (x, y) { return x - y },
+  '*': function (x, y) { return x * y },
+  '/': function (x, y) { return x / y },
+};
+
+doTheThing()

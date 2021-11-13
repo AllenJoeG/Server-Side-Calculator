@@ -56,6 +56,7 @@ let operatorMath = {
 //Function loop through parsedCalc and reduce all the multiplication and division
 //return parsedCalcMD
 
+
 //Function loop through parsedCalcMD and do all the addition and subtraction
 //return finalCalc,
 
