@@ -12,7 +12,8 @@
 <body>
   <h3>This adds up.</h3>
 
-    <table>
+  <div class="flexContainer">
+    <table class="flexChild">
       <thead>
         <tr>
           <td colspan="4"><span id="calcDisplayOut"></span></td>
@@ -49,12 +50,16 @@
       </tbody>
     </table>
 
-    <div class="calcHistoryDiv">
-      <button id="clearHistory">Clear History</button>
+    <div class="calcHistoryDiv flexChild">
+      <div class="buttonDiv">
+        <span>Calculation History</span>
+        <button id="clearHistory">Clear History</button>
+      </div>
       <ul class="calcHistory">
 
       </ul>
     </div>
+  </div>
 
 </body>
 </html>

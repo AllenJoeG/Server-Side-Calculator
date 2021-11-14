@@ -7,22 +7,29 @@ function jqReady(){
   $('.operButton').on('click', operButton);
   $('#equal').on('click', equalButton);
   $('#clearHistory').on('click', clrHistory);
+  $(document).on('click', '.historicalCalcs', )
   renderCalculations();
 };
 
 let preventOperatorSyntax = true;
+let newCalcInput = true;
 
 //Calc number handler
 function numberClicked(){
+  if (newCalcInput){
+    $('#calcDisplayOut').empty();
+  };
   let number = $(this).attr('id');
   $('#calcDisplayOut').append(number);
   preventOperatorSyntax = false;
+  newCalcInput = false;
 };
 
 //Calc Clear handler
 function clearButton(){
   $('#calcDisplayOut').empty();
   preventOperatorSyntax = true;
+  newCalcInput = true;
 };
 
 //Calc operators handler
@@ -51,6 +58,8 @@ function equalButton(){
   console.log('Passing calculation: ', calcString, ' to AJAX POST /calculate');
   //Then call submitCalculation() to POST it out w AJAX as an object
   submitCalculation(calcString);
+  preventOperatorSyntax = true;
+  newCalcInput = true;
   };
 };
 
@@ -83,11 +92,11 @@ function renderCalculations(){
     url: '/calculate',
     
   }).then(function (response){
+    $('#calcDisplayOut').text(`${response.calc[response.calc.length - 1]} = ${response.answer[response.answer.length - 1]}`);
     $('.calcHistory').empty();
-
     for (let i in response.calc){
       $('.calcHistory').append(`
-        <li>${response.calc[i]} = ${response.answer[i]}</li>
+        <li class="historicalCalcs">${response.calc[i]} = ${response.answer[i]}</li>
       `);
     };
   });
