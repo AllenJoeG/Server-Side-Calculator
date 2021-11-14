@@ -12,17 +12,20 @@ function jqReady(){
 
 let preventOperatorSyntax = true;
 
+//Calc number handler
 function numberClicked(){
   let number = $(this).attr('id');
   $('#calcDisplayOut').append(number);
   preventOperatorSyntax = false;
 };
 
+//Calc Clear handler
 function clearButton(){
   $('#calcDisplayOut').empty();
   preventOperatorSyntax = true;
 };
 
+//Calc operators handler
 function operButton(){
   if (preventOperatorSyntax){
     window.alert('Please Avoid Syntax Errors');
@@ -36,6 +39,8 @@ function operButton(){
   };
 };
 
+//Includes Stretch Goal Functionality, won't submit if improper calculation
+//Calc equal handler
 function equalButton(){
   //conditional that won't allow a submission that ends in an operator
   if(preventOperatorSyntax){

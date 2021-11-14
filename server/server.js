@@ -144,7 +144,7 @@ return parsedCalculation;
 function operatorCount(string){
   operatorIndexes = [];
   for (let x in string){
-    if (isNaN(string[x])){
+    if (isNaN(string[x]) && (string[x] != '.')){
       operatorIndexes.push(x);
     }
   }
