@@ -9,7 +9,7 @@ app.use(express.json());
 // Serve up static files (HTML, CSS, Client JS)
 app.use(express.static('server/public'));
 
-const calculationsArray = [];
+let calculationsArray = [];
 let calculatedArray = [];
 
 //RES codes: 2XX: good, 5XX: error
@@ -33,6 +33,15 @@ app.post('/calculate', (req, res) => {
   doTheMath(req.body)
   
   res.sendStatus(201);
+});
+
+//Stretch Goal
+//DELETE Route to clear calculation history
+app.delete('/clearHistory', (req, res) => {
+  calculationsArray = [];
+  calculatedArray = [];
+
+  res.sendStatus(200);
 });
 
 // Call all the math functions in the right order

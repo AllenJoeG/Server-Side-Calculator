@@ -6,6 +6,7 @@ function jqReady(){
   $('#clear').on('click', clearButton);
   $('.operButton').on('click', operButton);
   $('#equal').on('click', equalButton);
+  $('#clearHistory').on('click', clrHistory);
   renderCalculations();
 };
 
@@ -81,8 +82,19 @@ function renderCalculations(){
 
     for (let i in response.calc){
       $('.calcHistory').append(`
-        <li>${response.calc[i]}: ${response.answer[i]}</li>
+        <li>${response.calc[i]} = ${response.answer[i]}</li>
       `);
     };
+  });
+};
+
+//Stretch Goal
+//DELETE route to clear calc history.
+function clrHistory(){
+  $.ajax({
+    method: 'DELETE',
+    url: '/clearHistory',
+  }).then(function (response){
+    $('.calcHistory').empty();
   });
 };
