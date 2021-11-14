@@ -7,8 +7,10 @@ function jqReady(){
   $('.operButton').on('click', operButton);
   $('#equal').on('click', equalButton);
   $('#clearHistory').on('click', clrHistory);
-  $(document).on('click', '.historicalCalcs', )
+  
   renderCalculations();
+  $('#calcDisplayOut').text('');
+  $(document).on('click', '.historicalCalcs', displayPrev)
 };
 
 let preventOperatorSyntax = true;
@@ -92,8 +94,10 @@ function renderCalculations(){
     url: '/calculate',
     
   }).then(function (response){
-    $('#calcDisplayOut').text(`${response.calc[response.calc.length - 1]} = ${response.answer[response.answer.length - 1]}`);
-    $('.calcHistory').empty();
+    if (response.calc.length != 0){
+      $('#calcDisplayOut').text(`${response.calc[response.calc.length - 1]} = ${response.answer[response.answer.length - 1]}`);
+    };
+      $('.calcHistory').empty();
     for (let i in response.calc){
       $('.calcHistory').append(`
         <li class="historicalCalcs">${response.calc[i]} = ${response.answer[i]}</li>
@@ -110,5 +114,12 @@ function clrHistory(){
     url: '/clearHistory',
   }).then(function (response){
     $('.calcHistory').empty();
+    $('#calcDisplayOut').empty();
   });
 };
+
+function displayPrev(){
+  let prevCalc = $(this).text();
+  $('#calcDisplayOut').text(prevCalc);
+  newCalcInput = true;
+}
