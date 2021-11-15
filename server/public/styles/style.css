@@ -1,5 +1,8 @@
 body {
   background-color:steelblue;
+
+  /* background: rgb(100,102,100);
+background: linear-gradient(351deg, rgba(100,102,100,1) 1%, rgba(71,177,230,1) 17%, rgba(184,186,184,1) 93%, rgba(53,54,53,1) 98%); */
 }
 
 table {
@@ -10,9 +13,11 @@ table {
 }
 
 td {
+  background: rgb(124,129,124);
+  background: linear-gradient(324deg, rgba(124,129,124,1) 6%, rgba(184,186,184,1) 74%, rgba(88,92,89,1) 88%);
   width: 75px;
   height: 75px;
-  background-color: lightslategray;
+  /* background-color: lightslategray; */
 }
 
 thead td {
@@ -28,7 +33,9 @@ tbody td {
 
 .calcHistoryDiv {
   border: 2px solid black;
-  background-color: cornsilk;
+  /* background-color: cornsilk; */
+  background: rgb(124,129,124);
+background: linear-gradient(351deg, rgba(124,129,124,1) 1%, rgba(220,232,161,1) 17%, rgba(184,186,184,1) 93%, rgba(88,92,89,1) 98%);
 }
 
 .buttonDiv {
