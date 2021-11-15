@@ -77,9 +77,7 @@ function submitCalculation(calculation) {
   }).then(function(response) {
     console.log('Calculation Array SENT!')
     $('#calcDisplayOut').empty();
-    // TODO: call the GET to put result and history on the DOM
     renderCalculations();
-
   }).catch(function(error) {
     console.log('Calculation Array did NOT send')
 
@@ -88,7 +86,6 @@ function submitCalculation(calculation) {
 
 //GET ROUTE /calculate and RENDER calculated data
 function renderCalculations(){
-
   $.ajax({
     method: 'GET',
     url: '/calculate',
@@ -118,6 +115,8 @@ function clrHistory(){
   });
 };
 
+//Stretch Goal
+//clicking on a calculation in the History box re-displays it on the calculator
 function displayPrev(){
   let prevCalc = $(this).text();
   $('#calcDisplayOut').text(prevCalc);

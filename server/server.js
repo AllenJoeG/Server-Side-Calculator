@@ -25,7 +25,7 @@ app.get('/calculate', (req, res) => {
 });
 
 
-//POST Route receiving to-be-calculated from client
+//POST ROUTE /calculate Receives to-be-calculated from client
 app.post('/calculate', (req, res) => {
   //Call Function that changes req.body into calculation
   calculationsArray.push(req.body.calc);
@@ -36,7 +36,7 @@ app.post('/calculate', (req, res) => {
 });
 
 //Stretch Goal
-//DELETE Route to clear calculation history
+//DELETE ROUT /clearHistory to clear calculation history
 app.delete('/clearHistory', (req, res) => {
   calculationsArray = [];
   calculatedArray = [];
@@ -44,21 +44,27 @@ app.delete('/clearHistory', (req, res) => {
   res.sendStatus(200);
 });
 
-// Call all the math functions in the right order
-function doTheMath(object){
-  let calcString = object.calc;
-  let operatorsArray = operatorCount(calcString);
-  let parsedCalc = sliceAndDice(calcString, operatorsArray);
-  //Turn this array into a string
 
-  //call parseCalcMD(parsedCalc);
+//TODO: REQUIRE in these functions from mathfunctiontest.js
+// Call all the math functions on the incoming POST object
+function doTheMath(object){
+  //Catch incoming equation
+  let calcString = object.calc;
+  //Map the location of operators in the incoming equation
+  let operatorsArray = operatorCount(calcString);
+  //Parse calcString and operator map Array into Array equation of numbers and operators
+  let parsedCalc = sliceAndDice(calcString, operatorsArray);
+
+  //Pass parsed calculation through Order of Operations
+  //(peMDas) parseCalcMD(parsedCalc);
+  // Solves all the multiplication, then all of the division
   let parsedCalcMD = parseCalcMD(parsedCalc);
-  //call parseCalcAS(parsedCalcMD);
+  //(pemdAS) parseCalcAS(parsedCalcMD);
+  // Solves all the addition, then all of the subtraction
   let finalCalc = parseCalcAS(parsedCalcMD);
   //push finalCalc to calculatedArray;
   calculatedArray.push(finalCalc);
-
-  
+  //Visual checksum
   console.log(calculatedArray);
 };
 
