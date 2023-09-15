@@ -1,0 +1,27 @@
+version: "3.8" # docker compose version
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/app/
+    ports:
+      - "5006:5006"
+    # Run postgres before the server
+    # depends_on:
+    #   - postgres
+    # Environment variables (e.g. process.env.PORT)
+    environment:
+      PORT: 5006
+      # DATABASE_URL: postgres://todoapp:pass@postgres/todos
+  # postgres:
+  #   image: postgres:15
+  #   expose:
+  #     - "5432"
+  #   ports:
+  #     - "5435:5432"
+  #   environment:
+  #     POSTGRES_USER: todoapp
+  #     POSTGRES_PASSWORD: pass
+  #     POSTGRES_DB: todos
